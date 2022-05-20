@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LessonController;
 use App\Models\Course;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -15,20 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $courses = Course::all();
-    return view('courses.index',compact('courses'));
-});
+Route::get('/', [LessonController::class, 'index']);
+Route::get('/lessons/{lesson}', [LessonController::class, 'show']);
 
-Route::get('/courses', function () {
-    $courses = DB::table('courses')->get();
-    return view('courses.index',compact('courses'));
-});
-
-Route::get('/courses/{id}', function ($id) {
-//dd($isbn); //die and dump -> Hilfsfunktion von Laravel
-    $course = Course::find($id);
-//dd($book);
-    return view('courses.show',compact('course'));
-});
+//Route::get('/courses/{id}', function ($id) {
+////dd($isbn); //die and dump -> Hilfsfunktion von Laravel
+//    $course = Course::find($id);
+////dd($book);
+//    return view('courses.show',compact('course'));
+//});
 
