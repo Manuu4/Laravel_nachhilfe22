@@ -43,4 +43,11 @@ class User extends Authenticatable
     public function lessons() : HasMany {
         return $this->hasMany(Lesson::class);
     }
+
+    //Ein Nachhilfenehmer kann mehrere Vorschläge machen
+    public function proposal() : HasMany {
+        return $this->hasMany(Proposal::class);
+    }
+
+
 }

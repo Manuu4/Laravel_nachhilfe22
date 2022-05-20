@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Proposal;
 use App\Models\User;
 use Faker\Provider\DateTime;
 use Illuminate\Database\Seeder;
@@ -40,39 +41,6 @@ class CoursesTableSeeder extends Seeder
 
         //Speichere Kurse (Fachrichtungen)
         $course2->save();
-
-        //Erstelle Nutzer (Nachhilfegeber)
-        $user = User::all()->first();
-
-        //Erstelle Nachhilfestunden (Einheiten) und füge User entsprechend hinzu
-        $lesson1 = new Lesson();
-        $lesson1->title = "Coole Übung";
-        $lesson1->description = "Wir frischen Komm. auf!";
-        $lesson1->timeslot1 = date("2022-5-21 13:00:00");
-        $lesson1->user()->associate($user);
-
-        $lesson2 = new Lesson();
-        $lesson2->title = "Lernen macht Spaß";
-        $lesson2->description = "APA leicht erklärt";
-        $lesson2->timeslot1 = date("2022-5-22 18:00:00");
-        $lesson2->timeslot2 = date("2022-5-22 20:30:00");
-        $lesson2->user()->associate($user);
-
-        $lesson3 = new Lesson();
-        $lesson3->title = "Heute werden wir schlauer";
-        $lesson3->description = "Wir lernen zusammen etwas über APA";
-        $lesson3->timeslot1 = date("2022-5-22 16:30:00");
-        $lesson3->timeslot2 = date("2022-5-22 11:15:00");
-        $lesson3->user()->associate($user);
-
-        //Speichere Einheiten ab und weiße diese den Kursen zu
-        $course1->lessons()->saveMany([$lesson1, $lesson2, $lesson3]);
-        $course1->save();
-
-
-
-
-
 
 
 
