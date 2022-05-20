@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="s1910456032.student.kwmhgb.at" id="3844124d-6f32-4cac-acb6-4987bedfbbd6" port="222" nameFormat="DESCRIPTIVE" username="sstud37" />
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="s1910456032.student.kwmhgb.at" id="3844124d-6f32-4cac-acb6-4987bedfbbd6" port="222" nameFormat="DESCRIPTIVE" username="sstud37" />
     </configs>
   </component>
 </project>

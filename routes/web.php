@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Course;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-//use App\Models\Kurs;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +16,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $kurse = DB::table('kurse')->get();
-    //return $kurse;
-    return view('welcome',compact('kurse'));
+    $courses = Course::all();
+    return view('courses.index',compact('courses'));
 });
 
-Route::get('/kurse', function () {
-    $kurse = DB::table('kurse')->get();
-    return view('kurse.index',compact('kurse'));
+Route::get('/courses', function () {
+    $courses = DB::table('courses')->get();
+    return view('courses.index',compact('courses'));
 });
 
-Route::get('/kurse/{id}', function ($id) {
+Route::get('/courses/{id}', function ($id) {
 //dd($isbn); //die and dump -> Hilfsfunktion von Laravel
-    $kurs = DB::table('kurse')->find($id);
+    $course = Course::find($id);
 //dd($book);
-    return view('kurse.show',compact('kurs'));
+    return view('courses.show',compact('course'));
 });
 

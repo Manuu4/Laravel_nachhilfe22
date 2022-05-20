@@ -5,9 +5,9 @@
 </head>
 <body>
 <ul>
-    <h1>{{$kurs->name}}</h1>
-    <p>{{$kurs->semester}}</p>
-    <p>{{$kurs->description}}</p>
+    <h1>{{$course->name}}</h1>
+    <p>{{$course->semester}}</p>
+    <p>{{$course->description}}</p>
 </ul>
 <!--$lessons = DB::(‘lessons’)->where(‘lesson_course_id’,$id)->get();-->
 

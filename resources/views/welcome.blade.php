@@ -6,8 +6,8 @@
     <body>
         <h1>Hello World</h1>
         <ul>
-            @foreach ($kurse as $kurs)
-                <li>{{$kurs->name}} {{$kurs->semester}}</li>
+            @foreach ($courses as $course)
+                <li>{{$course->name}} {{$course->semester}}</li>
             @endforeach
         </ul>
     </body>
