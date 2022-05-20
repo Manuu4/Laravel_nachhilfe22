@@ -20,14 +20,21 @@ class CreateLessonsTable extends Migration
             $table->dateTime('timeslot1');
             $table->dateTime('timeslot2')->nullable();
             $table->dateTime('truetimeslot')->nullable();
+            $table->bigInteger('taker')->nullable();
             $table->string('status')->default('verfügbar');
 
+            //Kursart wird in Nachhilfestunde gespeichert
             $table->bigInteger('course_id')->unsigned();
-
-            //create constraint in db
             $table->foreign('course_id')
                 ->references('id')
                 ->on('courses')
+                ->onDelete('cascade');
+
+            //Ersteller wird in Nachhilfestunde gespeichert
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
                 ->onDelete('cascade');
 
             $table->timestamps();

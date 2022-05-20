@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
         $user->studies = "KWM";
         $user->helper = true;
         $user->email = "manu@gmail.com";
-        $user->password = "123456";
+        $user->password = bcrypt('secret');
         $user->save();
 
         $user = new User;
@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
         $user->studies = "MTD";
         $user->helper = false;
         $user->email = "marc@gmail.com";
-        $user->password = "123456";
+        $user->password = bcrypt('secret');
         $user->save();
     }
 }

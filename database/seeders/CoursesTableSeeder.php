@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\Lesson;
 use Faker\Provider\DateTime;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -17,15 +18,15 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        $course = new Course;
-        $course->name = "Kommunikationsmanagement";
-        $course->description = "Die Lehrveranstaltung besteht aus einer Vorlesung und einer Übung. Sie bietet eine Einführung in das Kommunikationsmanagement im Sinne der Planung, Koordinierung, Durchführung und Auswertung interner und externer Kommunikationsprozesse. Die Studierenden lernen eine Analyse der Ist-Situation durchzuführen, Kommunikationsziele zu definieren, Zielgruppen zu identifizieren, Kernbotschaften zu erarbeiten und darauf abgestimmte Kommunikationsmaßnahmen zu konzipieren. Zudem kennen sie wichtige Methoden der Evaluierung von Kommunikationsaktivitäten und wissen, wie man im Krisenfall richtig kommuniziert.";
-        $course->semester = 4;
-        $course->save();
+        $course1 = new Course;
+        $course1->name = "Kommunikationsmanagement";
+        $course1->description = "Die Lehrveranstaltung besteht aus einer Vorlesung und einer Übung. Sie bietet eine Einführung in das Kommunikationsmanagement im Sinne der Planung, Koordinierung, Durchführung und Auswertung interner und externer Kommunikationsprozesse. Die Studierenden lernen eine Analyse der Ist-Situation durchzuführen, Kommunikationsziele zu definieren, Zielgruppen zu identifizieren, Kernbotschaften zu erarbeiten und darauf abgestimmte Kommunikationsmaßnahmen zu konzipieren. Zudem kennen sie wichtige Methoden der Evaluierung von Kommunikationsaktivitäten und wissen, wie man im Krisenfall richtig kommuniziert.";
+        $course1->semester = 4;
+        $course1->save();
 
-        $course = new Course;
-        $course->name = "Adaptivität und Personalisierung";
-        $course->description = "This course deals with adaptivity and personalization. The following topics are covered:
+        $course2 = new Course;
+        $course2->name = "Adaptivität und Personalisierung";
+        $course2->description = "This course deals with adaptivity and personalization. The following topics are covered:
                 - Basics of Adaptive Systems
                 - User Modeling
                 - Example Domains (e.g., personalized search, user modeling for personalized interaction)
@@ -33,8 +34,30 @@ class CoursesTableSeeder extends Seeder
                 - Recommender Systems
                 - Data analysis for Adaptive Systems
                 - Evaluation of Adaptive Systems";
-        $course->semester = 6;
-        $course->save();
+        $course2->semester = 6;
+        $course2->save();
+
+        $lesson1 = new Lesson();
+        $lesson1->title = "Coole Übung";
+        $lesson1->description = "Wir frischen Komm. auf!";
+        $lesson1->timeslot1 = date("2022-5-21 13:00:00");
+
+        $lesson2 = new Lesson();
+        $lesson2->title = "Lernen macht Spaß";
+        $lesson2->description = "APA leicht erklärt";
+        $lesson2->timeslot1 = date("2022-5-22 18:00:00");
+        $lesson2->timeslot2 = date("2022-5-22 20:30:00");
+
+        $lesson3 = new Lesson();
+        $lesson3->title = "Heute werden wir schlauer";
+        $lesson3->description = "Wir lernen zusammen etwas über APA";
+        $lesson3->timeslot1 = date("2022-5-22 16:30:00");
+        $lesson3->timeslot2 = date("2022-5-22 11:15:00");
+
+        $course1->lessons()->saveMany([$lesson1, $lesson2, $lesson3]);
+        $course1->save();
+
+
 
         //$c = App\Models\Course::find(1);
 

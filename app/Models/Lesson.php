@@ -18,4 +18,9 @@ class Lesson extends Model
 
     protected $fillable = ['title', 'description', 'timeslot1', 'timeslot2', 'truetimeslot', 'status'];
     //properties that are writable
+
+    //Ein Nachhilfeangebot gehört zu einem Nachhilfegeber
+    public function user() : BelongsTo {
+        return $this->belongsTo(User::class);
+    }
 }
