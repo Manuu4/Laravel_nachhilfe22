@@ -20,5 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('lessons', [LessonController::class, 'index']);
-Route::get('lessons/{title}', [LessonController::class, 'findById']);
+Route::get('lessons', [LessonController::class,'index']);
+Route::get('lessons/status/{status}', [LessonController::class,'findByStatus']);
+Route::post('lessons', [LessonController::class,'save']);
+Route::get('lessons/{id}', [LessonController::class,'findById']);
+Route::get('lessons/checkid/{id}', [LessonController::class,'checkId']);
+Route::get('lessons/search/{searchTerm}', [LessonController::class,'findBySearchTerm']);

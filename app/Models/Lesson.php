@@ -17,7 +17,7 @@ class Lesson extends Model
         return $this->belongsTo(Course::class);
     }
 
-    protected $fillable = ['title', 'description', 'timeslot1', 'timeslot2', 'truetimeslot', 'status'];
+    protected $fillable = ['title', 'description', 'timeslot1', 'timeslot2', 'truetimeslot', 'status', 'user_id', 'course_id'];
     //properties that are writable
 
     //Ein Nachhilfeangebot gehört zu einem Nachhilfegeber

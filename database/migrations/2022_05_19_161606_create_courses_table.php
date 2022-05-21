@@ -32,3 +32,6 @@ class CreateCoursesTable extends Migration
         Schema::dropIfExists('courses');
     }
 }
+
+
+$a = new App\Models\Lesson(['title'=> 'Neuer Kurs', 'description'=> 'Dieser Kurs wurde neu angelegt', 'timeslot1'=> '2018-01-01T23:00:00.000Z', 'course_id'=> 1, 'user_id' => 1]);
