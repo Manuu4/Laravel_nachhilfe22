@@ -24,5 +24,7 @@ Route::get('lessons', [LessonController::class,'index']);
 Route::get('lessons/status/{status}', [LessonController::class,'findByStatus']);
 Route::post('lessons', [LessonController::class,'save']);
 Route::get('lessons/{id}', [LessonController::class,'findById']);
+Route::put('lessons/{id}', [LessonController::class,'update']);
+Route::delete('lessons/{id}', [LessonController::class,'delete']);
 Route::get('lessons/checkid/{id}', [LessonController::class,'checkId']);
 Route::get('lessons/search/{searchTerm}', [LessonController::class,'findBySearchTerm']);

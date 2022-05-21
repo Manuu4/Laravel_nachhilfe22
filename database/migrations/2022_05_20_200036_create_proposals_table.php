@@ -15,7 +15,7 @@ class CreateProposalsTable extends Migration
     {
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
-            $table->text('message');
+            $table->text('message')->nullable();
             $table->dateTime('time');
             $table->string('status')->default('unbeantwortet');
 
@@ -32,6 +32,7 @@ class CreateProposalsTable extends Migration
                 ->references('id')
                 ->on('lessons')
                 ->onDelete('cascade');
+
 
             $table->timestamps();
         });

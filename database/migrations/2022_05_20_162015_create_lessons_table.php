@@ -37,6 +37,13 @@ class CreateLessonsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
+//            //Vorschläge werden in Nachhilfestunde gespeichert
+//            $table->bigInteger('proposal_id')->unsigned();
+//            $table->foreign('proposal_id')
+//                ->references('id')
+//                ->on('proposal')
+//                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
