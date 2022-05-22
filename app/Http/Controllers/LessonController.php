@@ -35,7 +35,7 @@ class LessonController extends Controller
             response()->json(false, 200);
     }
 
-    //Zeit formatieren
+    //Lesson nach Status suchen
     public function findByStatus(string $status) {
         $lesson = Lesson::where('status', $status)->with(['user', 'course', 'proposal'])->get();
         return $lesson;
@@ -94,7 +94,7 @@ class LessonController extends Controller
 
     }
 
-    //Lesson nach id löschen erstellen
+    //Lesson nach id löschen
     public function delete(int $id) : JsonResponse
     {
         $lesson = Lesson::where('id', $id)->first();
@@ -106,6 +106,8 @@ class LessonController extends Controller
         return response()->json('lesson (' . $id . ') successfully deleted', 200);
 
     }
+
+
 
     //Lesson nach id updaten
     public function update(Request $request, int $id) : JsonResponse
@@ -144,6 +146,95 @@ class LessonController extends Controller
             // rollback all queries
             DB::rollBack();
             return response()->json("updating lesson failed: " . $e->getMessage(), 420);
+        }
+    }
+
+
+    //Alle Kurse ausgeben
+    public function indexCourses() : JsonResponse {
+//        $courses = Course::get();
+        $courses = Course::with('lessons')->get();
+        return response()->json($courses, 200);
+    }
+
+
+    //Kurs nach id heraussuchen
+    public function findCourseById(int $id) : Course{
+        $course = Course::where('id', $id)->with('lessons')->first();
+        return $course;
+    }
+
+
+    //Anfragen nach Taker nehmen
+    public function findLessonByTakerId(int $id) {
+        $lessons = Lesson::where('taker', $id)->get();
+        return $lessons;
+    }
+
+    //Lessons nach Ersteller nehmen
+    public function findLessonByHelperId(int $id) {
+        $lessons = Lesson::where('user_id', $id)->get();
+        return $lessons;
+    }
+
+
+    //Anfragen nach Lessons finden
+    public function findProposal(int $id) {
+        $proposal = Proposal::where('lesson_id', $id)->with('user')->get();
+        return $proposal;
+    }
+
+    //Proposal nach id updaten
+    public function updateProposal(Request $request, int $id) : JsonResponse
+    {
+
+        DB::beginTransaction();
+        try {
+            $proposal = Proposal::with(['user', 'lesson'])
+                ->where('id', $id)->first();
+            if ($proposal != null) {
+                $request = $this->parseRequest($request);
+                $proposal->update($request->all());
+                $proposal->save();
+
+            }
+            DB::commit();
+            $proposal1 = Proposal::with(['user', 'lesson'])
+                ->where('id', $id)->first();
+            // return a vaild http response
+            return response()->json($proposal1, 201);
+        }
+        catch (\Exception $e) {
+            // rollback all queries
+            DB::rollBack();
+            return response()->json("updating proposal failed: " . $e->getMessage(), 420);
+        }
+    }
+
+    //Proposal nach id löschen erstellen
+    public function deleteProposal(int $id) : JsonResponse
+    {
+        $proposal = Proposal::where('id', $id)->first();
+        if ($proposal != null) {
+            $proposal->delete();
+        }
+        else
+            throw new \Exception("proposal couldn't be deleted - it does not exist");
+        return response()->json('proposal (' . $id . ') successfully deleted', 200);
+
+    }
+
+    //Neue Anfrage erstellen
+    public function saveProposal (Request $request) : JsonResponse {
+        $request = $this->parseRequest($request);
+        DB::beginTransaction();
+        try {
+            $proposal = Proposal::create($request->all());
+            DB::commit();
+            return response()->json($proposal, 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json("saving proposal failed: " . $e->getMessage(), 420);
         }
     }
 }

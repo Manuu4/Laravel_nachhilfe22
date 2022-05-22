@@ -16,7 +16,7 @@ class Proposal extends Model
         return $this->belongsTo(Lesson::class);
     }
 
-    protected $fillable = ['time', 'message', 'status'];
+    protected $fillable = ['time', 'message', 'status', 'user_id', 'lesson_id'];
     //properties that are writable
 
     //Ein Vorschlag gehört zu einem Nachhilfenehmer

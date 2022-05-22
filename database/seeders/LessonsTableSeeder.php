@@ -39,6 +39,7 @@ class LessonsTableSeeder extends Seeder
         $lesson3 = new Lesson();
         $lesson3->title = "Heute werden wir schlauer";
         $lesson3->description = "Wir lernen zusammen etwas über APA";
+        $lesson3->taker = 2;
         $lesson3->timeslot1 = date("2022-5-22 16:30:00");
         $lesson3->timeslot2 = date("2022-5-22 11:15:00");
         $lesson3->user()->associate($user1);
