@@ -237,6 +237,12 @@ class LessonController extends Controller
             return response()->json("saving proposal failed: " . $e->getMessage(), 420);
         }
     }
+
+    //Lessons nach Kursen finden
+    public function findLessonsByCourseId(int $id) {
+        $lessons = Lesson::where('course_id', $id)->get();
+        return $lessons;
+    }
 }
 
 
