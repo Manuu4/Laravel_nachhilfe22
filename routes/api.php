@@ -21,8 +21,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/* protected Nur für Admins */
+Route::group(['middleware' =>['api', 'auth.jwt']], function() {
+    Route::post('lessons', [LessonController::class,'save']);
+    Route::put('lessons/{id}', [LessonController::class,'update']);
+    Route::delete('lessons/{id}', [LessonController::class,'delete']);
+    Route::post('auth/logout', [AuthController::class,'logout']);
+});
+
 /* auth */
 Route::post('auth/login', [AuthController::class,'login']);
+//Route::post('auth/logout', [AuthController::class,'logout']);
 
 Route::get('lessons', [LessonController::class,'index']);
 Route::get('lessons/{id}', [LessonController::class,'findById']);
@@ -37,15 +46,12 @@ Route::get('courses', [LessonController::class,'indexCourses']);
 Route::get('courses/{id}', [LessonController::class,'findCourseById']);
 Route::get('courses/{id}/lessons', [LessonController::class,'findLessonsByCourseId']);
 
-Route::post('lessons', [LessonController::class,'save']);
+//Route::post('lessons', [LessonController::class,'save']);
 Route::post('proposals', [LessonController::class,'saveProposal']);
 
-Route::put('lessons/{id}', [LessonController::class,'update']);
+//Route::put('lessons/{id}', [LessonController::class,'update']);
 Route::put('proposals/{id}', [LessonController::class,'updateProposal']);
 
-Route::delete('lessons/{id}', [LessonController::class,'delete']);
+//Route::delete('lessons/{id}', [LessonController::class,'delete']);
 Route::delete('proposals/{id}', [LessonController::class,'deleteProposal']);
-
-
-
 
