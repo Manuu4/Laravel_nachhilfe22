@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
         $user->firstname = "Manu";
         $user->lastname = "Strobel";
         $user->studies = "KWM";
-        $user->helper = true;
+        $user->helper = "helper";
         $user->email = "manu@gmail.com";
         $user->password = bcrypt('secret');
         $user->save();
@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
         $user->firstname = "Marc";
         $user->lastname = "Strobel";
         $user->studies = "MTD";
-        $user->helper = false;
+        $user->helper = "student";
         $user->email = "marc@gmail.com";
         $user->password = bcrypt('secret');
         $user->save();
@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
         $user->firstname = "Vanny";
         $user->lastname = "Maith";
         $user->studies = "MTD";
-        $user->helper = false;
+        $user->helper = "student";
         $user->email = "vanny@gmail.com";
         $user->password = bcrypt('secret');
         $user->save();
@@ -51,7 +51,7 @@ class UsersTableSeeder extends Seeder
         $user->firstname = "Tommy";
         $user->lastname = "Sickinger";
         $user->studies = "HTD";
-        $user->helper = false;
+        $user->helper = "student";
         $user->email = "tommy@gmail.com";
         $user->password = bcrypt('secret');
         $user->save();
