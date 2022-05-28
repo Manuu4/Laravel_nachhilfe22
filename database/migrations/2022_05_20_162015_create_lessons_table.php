@@ -18,7 +18,7 @@ class CreateLessonsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->dateTime('timeslot1');
-            $table->dateTime('timeslot2')->nullable();
+            $table->dateTime('timeslot2');
             $table->dateTime('truetimeslot')->nullable();
             $table->bigInteger('taker')->nullable();
             $table->string('status')->default('verfügbar');

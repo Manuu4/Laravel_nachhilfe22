@@ -28,6 +28,7 @@ class LessonsTableSeeder extends Seeder
         $lesson1->title = "Coole Übung";
         $lesson1->description = "Wir frischen Komm. auf!";
         $lesson1->timeslot1 = new \DateTime("2022-05-22UTC15:00");
+        $lesson1->timeslot2 = new \DateTime("2022-05-22UTC17:00");
         $lesson1->user()->associate($user1);
 
         $lesson2 = new Lesson();
