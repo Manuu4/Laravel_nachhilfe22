@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LessonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,9 @@ use Illuminate\Http\JsonResponse;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/* auth */
+Route::post('auth/login', [AuthController::class,'login']);
 
 Route::get('lessons', [LessonController::class,'index']);
 Route::get('lessons/{id}', [LessonController::class,'findById']);
