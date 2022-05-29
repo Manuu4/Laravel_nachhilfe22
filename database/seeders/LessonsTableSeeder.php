@@ -41,7 +41,7 @@ class LessonsTableSeeder extends Seeder
         $lesson3 = new Lesson();
         $lesson3->title = "Heute werden wir schlauer";
         $lesson3->description = "Wir lernen zusammen etwas über APA";
-        $lesson3->taker = 2;
+        $lesson3->taker = 3;
         $lesson3->timeslot1 = new \DateTime("2022-05-22UTC15:00");
         $lesson3->timeslot2 = new \DateTime("2022-05-22UTC18:00");
         $lesson3->user()->associate($user1);
@@ -49,7 +49,7 @@ class LessonsTableSeeder extends Seeder
         $lesson4 = new Lesson();
         $lesson4->title = "Vierte Lesson";
         $lesson4->description = "ABCDEFG";
-        $lesson4->taker = 2;
+        $lesson4->taker = 3;
         $lesson4->timeslot1 = new \DateTime("2022-05-22UTC15:00");
         $lesson4->timeslot2 = new \DateTime("2022-05-22UTC17:00");
         $lesson4->user()->associate($user1);

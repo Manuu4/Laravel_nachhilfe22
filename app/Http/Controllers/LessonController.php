@@ -167,15 +167,15 @@ class LessonController extends Controller
 
     //Anfragen nach Taker nehmen
     public function findLessonByTakerId(int $id) {
-        $lessons = Lesson::where('taker', $id)->get();
+        $lessons = Lesson::where('taker', $id)->orWhere('user_id', $id)->get();
         return $lessons;
     }
 
     //Lessons nach Ersteller nehmen
-    public function findLessonByHelperId(int $id) {
-        $lessons = Lesson::where('user_id', $id)->get();
-        return $lessons;
-    }
+//    public function findLessonByHelperId(int $id) {
+//        $lessons = Lesson::where('user_id', $id)->get();
+//        return $lessons;
+//    }
 
 
     //Anfragen nach Lessons finden
@@ -249,6 +249,9 @@ class LessonController extends Controller
         $lesson = Lesson::where('title', $title)->get();
         return $lesson;
     }
+
+
+
 }
 
 

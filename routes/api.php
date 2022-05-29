@@ -27,6 +27,8 @@ Route::group(['middleware' =>['api', 'auth.jwt']], function() {
     Route::put('lessons/{id}', [LessonController::class,'update']);
     Route::delete('lessons/{id}', [LessonController::class,'delete']);
     Route::post('auth/logout', [AuthController::class,'logout']);
+    Route::get('personalarea/{id}', [LessonController::class,'findLessonByTakerId']);
+//    Route::get('personalarea/{id}', [LessonController::class,'findLessonByHelperId']);
 });
 
 /* auth */
@@ -39,8 +41,6 @@ Route::get('lessons/checktitle/{title}', [LessonController::class,'checkLessonTi
 Route::get('lessons/checkid/{id}', [LessonController::class,'checkId']);
 Route::get('lessons/search/{searchTerm}', [LessonController::class,'findBySearchTerm']);
 Route::get('lessons/status/{status}', [LessonController::class,'findByStatus']);
-Route::get('lessons/taken/{id}', [LessonController::class,'findLessonByTakerId']);
-Route::get('lessons/given/{id}', [LessonController::class,'findLessonByHelperId']);
 Route::get('lessons/proposals/{id}', [LessonController::class,'findProposal']);
 
 Route::get('courses', [LessonController::class,'indexCourses']);
