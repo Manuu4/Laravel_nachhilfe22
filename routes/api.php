@@ -35,6 +35,7 @@ Route::post('auth/login', [AuthController::class,'login']);
 
 Route::get('lessons', [LessonController::class,'index']);
 Route::get('lessons/{id}', [LessonController::class,'findById']);
+Route::get('lessons/checktitle/{title}', [LessonController::class,'checkLessonTitle']);
 Route::get('lessons/checkid/{id}', [LessonController::class,'checkId']);
 Route::get('lessons/search/{searchTerm}', [LessonController::class,'findBySearchTerm']);
 Route::get('lessons/status/{status}', [LessonController::class,'findByStatus']);

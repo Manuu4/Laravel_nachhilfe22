@@ -243,6 +243,12 @@ class LessonController extends Controller
         $lessons = Lesson::where('course_id', $id)->get();
         return $lessons;
     }
+
+    //Lessons nach Title checken
+    public function checkLessonTitle(int $title) {
+        $lesson = Lesson::where('title', $title)->get();
+        return $lesson;
+    }
 }
 
 
