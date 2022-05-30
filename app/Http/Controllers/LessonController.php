@@ -159,10 +159,10 @@ class LessonController extends Controller
 
 
     //Kurs nach id heraussuchen
-    public function findCourseById(int $id) : Course{
-        $course = Course::where('id', $id)->with('lessons')->first();
-        return $course;
-    }
+//    public function findCourseById(int $id) : Course{
+//        $course = Course::where('id', $id)->with('lessons')->first();
+//        return $course;
+//    }
 
 
     //Anfragen nach Taker nehmen

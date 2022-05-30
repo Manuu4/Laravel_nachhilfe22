@@ -44,8 +44,8 @@ Route::get('lessons/status/{status}', [LessonController::class,'findByStatus']);
 Route::get('lessons/proposals/{id}', [LessonController::class,'findProposal']);
 
 Route::get('courses', [LessonController::class,'indexCourses']);
-Route::get('courses/{id}', [LessonController::class,'findCourseById']);
-Route::get('courses/{id}/lessons', [LessonController::class,'findLessonsByCourseId']);
+//Route::get('courses/{id}', [LessonController::class,'findCourseById']);
+Route::get('courses/{id}', [LessonController::class,'findLessonsByCourseId']);
 
 //Route::post('lessons', [LessonController::class,'save']);
 Route::post('proposals', [LessonController::class,'saveProposal']);
