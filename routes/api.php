@@ -28,6 +28,8 @@ Route::group(['middleware' =>['api', 'auth.jwt']], function() {
     Route::delete('lessons/{id}', [LessonController::class,'delete']);
     Route::post('auth/logout', [AuthController::class,'logout']);
     Route::get('personalarea/{id}', [LessonController::class,'findLessonByTakerId']);
+    Route::get('personalarea/lesson/{id}', [LessonController::class,'findProposalByLessonId']);
+    Route::get('personalarea/user/{id}', [LessonController::class,'findProposalByUserId']);
 //    Route::get('personalarea/{id}', [LessonController::class,'findLessonByHelperId']);
 });
 

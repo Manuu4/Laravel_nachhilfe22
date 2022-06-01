@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Lesson;
+
 //use http\Env\Response;
 use App\Models\Proposal;
 use Illuminate\Http\JsonResponse;
@@ -15,20 +16,23 @@ class LessonController extends Controller
 {
 
     //Alle Lessons ausgeben
-    public function index() : JsonResponse {
+    public function index(): JsonResponse
+    {
         $lessons = Lesson::with(['user', 'course', 'proposal'])->get();
 //        return view('courses.index', compact('lessons'));
         return response()->json($lessons, 200);
     }
 
     //Lesson nach id heraussuchen
-    public function findById(int $id) : Lesson{
+    public function findById(int $id): Lesson
+    {
         $lesson = Lesson::where('id', $id)->with(['user', 'course', 'proposal'])->first();
         return $lesson;
     }
 
     //boolean existiert Lesson nach id?
-    public function checkId(int $id) {
+    public function checkId(int $id)
+    {
         $lesson = Lesson::where('id', $id)->first();
         return $lesson != null ?
             response()->json(true, 200) :
@@ -36,38 +40,40 @@ class LessonController extends Controller
     }
 
     //Lesson nach Status suchen
-    public function findByStatus(string $status) {
+    public function findByStatus(string $status)
+    {
         $lesson = Lesson::where('status', $status)->with(['user', 'course', 'proposal'])->get();
         return $lesson;
     }
 
     //Bestimmte Lesson ausspielen nach ID in URL .../lessons/ID
-    public function show(Lesson $lesson){
+    public function show(Lesson $lesson)
+    {
 //        $lesson = Lesson::find($lesson);
         return view('courses.show', compact('lesson'));
     }
 
     //Lesson nach Suchbegriff suchen
-    public function findBySearchTerm(string $searchTerm) {
+    public function findBySearchTerm(string $searchTerm)
+    {
         $lesson = Lesson::with(['user', 'course', 'proposal'])
-            ->where('title', 'LIKE', '%' . $searchTerm. '%')
-            ->orWhere('description' , 'LIKE', '%' . $searchTerm. '%')
-
+            ->where('title', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
             /* search term in course name */
-            ->orWhereHas('course', function($query) use ($searchTerm) {
+            ->orWhereHas('course', function ($query) use ($searchTerm) {
                 $query->where('name', 'LIKE', '%' . $searchTerm . '%');
             })
-
             /* search term in users name */
-            ->orWhereHas('user', function($query) use ($searchTerm) {
-                $query->where('firstname', 'LIKE', '%' . $searchTerm. '%')
-                    ->orWhere('lastname', 'LIKE',  '%' . $searchTerm. '%');
+            ->orWhereHas('user', function ($query) use ($searchTerm) {
+                $query->where('firstname', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $searchTerm . '%');
             })->get();
         return $lesson;
     }
 
     //Neue Lerneinheit erstellen
-    public function save (Request $request) : JsonResponse {
+    public function save(Request $request): JsonResponse
+    {
         $request = $this->parseRequest($request);
         DB::beginTransaction();
         try {
@@ -83,7 +89,8 @@ class LessonController extends Controller
     }
 
     //Zeit formatieren
-    private function parseRequest(Request $request) : Request {
+    private function parseRequest(Request $request): Request
+    {
 
         $date = new \DateTime($request->timeslot1);
         $request['timeslot1'] = $date;
@@ -94,23 +101,28 @@ class LessonController extends Controller
 
     }
 
+    //Zeit formatieren
+    private function parseRequestForProposal(Request $request): Request
+    {
+        $date = new \DateTime($request->time);
+        $request['time'] = $date;
+        return $request;
+    }
+
     //Lesson nach id löschen
-    public function delete(int $id) : JsonResponse
+    public function delete(int $id): JsonResponse
     {
         $lesson = Lesson::where('id', $id)->first();
         if ($lesson != null) {
             $lesson->delete();
-        }
-        else
+        } else
             throw new \Exception("lesson couldn't be deleted - it does not exist");
         return response()->json('lesson (' . $id . ') successfully deleted', 200);
-
     }
 
 
-
     //Lesson nach id updaten
-    public function update(Request $request, int $id) : JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
 
         DB::beginTransaction();
@@ -141,8 +153,7 @@ class LessonController extends Controller
                 ->where('id', $id)->first();
             // return a vaild http response
             return response()->json($lesson1, 201);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             // rollback all queries
             DB::rollBack();
             return response()->json("updating lesson failed: " . $e->getMessage(), 420);
@@ -151,7 +162,8 @@ class LessonController extends Controller
 
 
     //Alle Kurse ausgeben
-    public function indexCourses() : JsonResponse {
+    public function indexCourses(): JsonResponse
+    {
 //        $courses = Course::get();
         $courses = Course::with('lessons')->get();
         return response()->json($courses, 200);
@@ -166,7 +178,8 @@ class LessonController extends Controller
 
 
     //Anfragen nach Taker nehmen
-    public function findLessonByTakerId(int $id) {
+    public function findLessonByTakerId(int $id)
+    {
         $lessons = Lesson::where('taker', $id)->orWhere('user_id', $id)->get();
         return $lessons;
     }
@@ -179,13 +192,14 @@ class LessonController extends Controller
 
 
     //Anfragen nach Lessons finden
-    public function findProposal(int $id) {
+    public function findProposal(int $id)
+    {
         $proposal = Proposal::where('lesson_id', $id)->with('user')->get();
         return $proposal;
     }
 
     //Proposal nach id updaten
-    public function updateProposal(Request $request, int $id) : JsonResponse
+    public function updateProposal(Request $request, int $id): JsonResponse
     {
 
         DB::beginTransaction();
@@ -193,7 +207,7 @@ class LessonController extends Controller
             $proposal = Proposal::with(['user', 'lesson'])
                 ->where('id', $id)->first();
             if ($proposal != null) {
-                $request = $this->parseRequest($request);
+                $request = $this->parseRequestForProposal($request);
                 $proposal->update($request->all());
                 $proposal->save();
 
@@ -203,8 +217,7 @@ class LessonController extends Controller
                 ->where('id', $id)->first();
             // return a vaild http response
             return response()->json($proposal1, 201);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             // rollback all queries
             DB::rollBack();
             return response()->json("updating proposal failed: " . $e->getMessage(), 420);
@@ -212,21 +225,21 @@ class LessonController extends Controller
     }
 
     //Proposal nach id löschen erstellen
-    public function deleteProposal(int $id) : JsonResponse
+    public function deleteProposal(int $id): JsonResponse
     {
         $proposal = Proposal::where('id', $id)->first();
         if ($proposal != null) {
             $proposal->delete();
-        }
-        else
+        } else
             throw new \Exception("proposal couldn't be deleted - it does not exist");
         return response()->json('proposal (' . $id . ') successfully deleted', 200);
 
     }
 
     //Neue Anfrage erstellen
-    public function saveProposal (Request $request) : JsonResponse {
-        $request = $this->parseRequest($request);
+    public function saveProposal(Request $request): JsonResponse
+    {
+        $request = $this->parseRequestForProposal($request);
         DB::beginTransaction();
         try {
             $proposal = Proposal::create($request->all());
@@ -239,17 +252,32 @@ class LessonController extends Controller
     }
 
     //Lessons nach Kursen finden
-    public function findLessonsByCourseId(int $id) {
+    public function findLessonsByCourseId(int $id)
+    {
         $lessons = Lesson::where('course_id', $id)->get();
         return $lessons;
     }
 
     //Lessons nach Title checken
-    public function checkLessonTitle(int $title) {
+    public function checkLessonTitle(int $title)
+    {
         $lesson = Lesson::where('title', $title)->get();
         return $lesson;
     }
 
+    //proposal nach lessonId finden
+    public function findProposalByLessonId(int $id)
+    {
+        $proposals = Proposal::where('lesson_id', $id)->with(['user', 'lesson'])->get();
+        return $proposals;
+    }
+
+    //proposal nach UserId finden
+    public function findProposalByUserId(int $id)
+    {
+        $proposals = Proposal::where('user_id', $id)->with(['lesson', 'user'])->get();
+        return $proposals;
+    }
 
 
 }

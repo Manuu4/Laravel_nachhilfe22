@@ -29,23 +29,30 @@ class ProposalsTableSeeder extends Seeder
         //Nachhilfesuchender fragt neuen Termin für lesson3 an
         $proposal1 = new Proposal();
         $proposal1->message = "Kann da leider nicht. Geht der neue Termin auch?";
-        $proposal1->time = date("2022-5-23 12:00:00");
+        $proposal1->time = new \DateTime("2022-05-22UTC15:00");
         $proposal1->user()->associate($user2);
         $proposal1->lesson()->associate($lesson3);
         $proposal1->save();
 
         $proposal2 = new Proposal();
         $proposal2->message = "Eine ander möglichkeit wäre dieser Termin";
-        $proposal2->time = date("2022-5-23 14:00:00");
+        $proposal2->time = new \DateTime("2022-05-22UTC15:00");
         $proposal2->user()->associate($user3);
         $proposal2->lesson()->associate($lesson2);
         $proposal2->save();
 
         $proposal3 = new Proposal();
         $proposal3->message = "Eine ander möglichkeit wäre dieser Termin";
-        $proposal3->time = date("2022-5-23 14:00:00");
+        $proposal3->time = new \DateTime("2022-05-22UTC15:00");
         $proposal3->user()->associate($user4);
         $proposal3->lesson()->associate($lesson2);
         $proposal3->save();
+
+        $proposal4 = new Proposal();
+        $proposal4->message = "Eine ander möglichkeit wäre dieser Termin";
+        $proposal4->time = new \DateTime("2022-05-22UTC15:00");
+        $proposal4->user()->associate($user2);
+        $proposal4->lesson()->associate($lesson2);
+        $proposal4->save();
     }
 }
