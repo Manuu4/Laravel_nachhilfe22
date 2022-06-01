@@ -18,6 +18,7 @@ class LessonsTableSeeder extends Seeder
     {
         //Nehme Nutzer (Nachhilfegeber)
         $user1 = User::find(1);
+        $user2 = User::find(2);
 
         //Nehme Kurs (Fachrichtung)
         $course1 = Course::find(1);
@@ -26,7 +27,7 @@ class LessonsTableSeeder extends Seeder
         //Erstelle Nachhilfestunden (Einheiten) und füge User entsprechend hinzu
         $lesson1 = new Lesson();
         $lesson1->title = "Coole Übung";
-        $lesson1->description = "Wir frischen Komm. auf!";
+        $lesson1->description = "Hier steht diesmal eine längere Beschreibung um auszutesten, wie das ganze im Frontend aussieht. Auserdem sehen wir uns Mathe an.";
         $lesson1->timeslot1 = new \DateTime("2022-05-22UTC15:00");
         $lesson1->timeslot2 = new \DateTime("2022-05-22UTC17:00");
         $lesson1->user()->associate($user1);
@@ -44,7 +45,7 @@ class LessonsTableSeeder extends Seeder
         $lesson3->taker = 3;
         $lesson3->timeslot1 = new \DateTime("2022-05-22UTC15:00");
         $lesson3->timeslot2 = new \DateTime("2022-05-22UTC18:00");
-        $lesson3->user()->associate($user1);
+        $lesson3->user()->associate($user2);
 
         $lesson4 = new Lesson();
         $lesson4->title = "Vierte Lesson";
@@ -52,7 +53,7 @@ class LessonsTableSeeder extends Seeder
         $lesson4->taker = 3;
         $lesson4->timeslot1 = new \DateTime("2022-05-22UTC15:00");
         $lesson4->timeslot2 = new \DateTime("2022-05-22UTC17:00");
-        $lesson4->user()->associate($user1);
+        $lesson4->user()->associate($user2);
 
         //Speichere Einheiten ab und weiße diese den Kursen zu
         $course1->lessons()->saveMany([$lesson1, $lesson2]);

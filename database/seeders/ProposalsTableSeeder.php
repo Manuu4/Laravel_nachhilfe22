@@ -30,15 +30,15 @@ class ProposalsTableSeeder extends Seeder
         $proposal1 = new Proposal();
         $proposal1->message = "Kann da leider nicht. Geht der neue Termin auch?";
         $proposal1->time = new \DateTime("2022-05-22UTC15:00");
-        $proposal1->user()->associate($user2);
-        $proposal1->lesson()->associate($lesson3);
+        $proposal1->user()->associate($user3);
+        $proposal1->lesson()->associate($lesson2);
         $proposal1->save();
 
         $proposal2 = new Proposal();
         $proposal2->message = "Eine ander möglichkeit wäre dieser Termin";
         $proposal2->time = new \DateTime("2022-05-22UTC15:00");
         $proposal2->user()->associate($user3);
-        $proposal2->lesson()->associate($lesson2);
+        $proposal2->lesson()->associate($lesson3);
         $proposal2->save();
 
         $proposal3 = new Proposal();
@@ -51,8 +51,8 @@ class ProposalsTableSeeder extends Seeder
         $proposal4 = new Proposal();
         $proposal4->message = "Eine ander möglichkeit wäre dieser Termin";
         $proposal4->time = new \DateTime("2022-05-22UTC15:00");
-        $proposal4->user()->associate($user2);
-        $proposal4->lesson()->associate($lesson2);
+        $proposal4->user()->associate($user4);
+        $proposal4->lesson()->associate($lesson3);
         $proposal4->save();
     }
 }

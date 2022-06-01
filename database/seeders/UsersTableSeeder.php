@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
         $user->firstname = "Marc";
         $user->lastname = "Strobel";
         $user->studies = "MTD";
-        $user->helper = "student";
+        $user->helper = "helper";
         $user->email = "marc@gmail.com";
         $user->password = bcrypt('secret');
         $user->save();
